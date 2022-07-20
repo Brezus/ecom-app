@@ -9,6 +9,7 @@ import closeIcon from "../images/icon-close.svg"
 export default function Nav({ cartInfo }) {
   const {
     openCart,
+    setOpenCart,
     notify,
     toggleCart,
     clickedCart,
@@ -32,14 +33,13 @@ export default function Nav({ cartInfo }) {
     </svg>
   )
   const profPicComp = (
-    <img
-      className="prof-pic"
-      src={profPhoto}
-      alt="prof-pic"
-      tabIndex={0}
+    <div
+      className={openCart ? "prof-pic open" : "prof-pic"}
       onClick={toggleCart}
-    />
+      style={{ backgroundImage: `url(${profPhoto})` }}
+    ></div>
   )
+  // <img className="prof-pic" src={profPhoto} alt="prof-pic" />
 
   const notificationComp = (
     <div className="notification-cart" tabIndex={0} onClick={toggleCart}>
@@ -78,7 +78,10 @@ export default function Nav({ cartInfo }) {
           style={{ position: `${openMenu ? "fixed" : "absolute"}` }}
           className="menu-icon"
           src={openMenu ? closeIcon : menuIcon}
-          onClick={toggleMenu}
+          onClick={() => {
+            toggleMenu()
+            setOpenCart(false)
+          }}
           alt={"menu icon"}
         />
         <img className="logo" src={logo} alt="logo" tabIndex={0} />
